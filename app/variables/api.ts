@@ -1,0 +1,1 @@
+export const MARKETS_LIST_API = 'http://localhost:3001/markets';

@@ -1,0 +1,44 @@
+{
+    "translations": {
+        "buttons": {
+            "submit": "Надіслати"
+        },
+        "placeholders": {
+            
+        },
+        "labels": {
+            "email": "Електронна пошта",
+            "password": "Пароль",
+            "confirmPassword": "Підтвердження паролю",
+            "username": "Ім'я користувача",
+            "selectMarket": "Вибір ринку",
+            "rememberMe": "Запам'ятати мене"
+        },
+        "userAccess": {
+            "auth": {
+                "register": "Реєстрація",
+                "signIn": "Увійти",
+                "forgotPassword": "Відновити Пароль"
+            },
+            "messages": {
+                "enterEmail": "Будь ласка, введіть вашу електронну пошту!",
+                "enterPassword": "Будь ласка, введіть ваш пароль",
+                "confirmPassword": "Будь ласка, підтвердіть ваш пароль!",
+                "enterUsername": "Будь ласка, введіть ваше ім'я користувача!",
+                "selectMarket": "Будь ласка, виберіть ринок!"
+            },
+            "errors": {
+                "invalidEmail": "Будь ласка, введіть правильну електронну пошту!",
+                "invalidPassword": "Пароль повинен містити не менше 6 символів!",
+                "confirmPassword": "Будь ласка, підтверджіть ваш пароль!",
+                "missmatchPassords": "Паролі не співпадають!"
+            }
+        },
+        "pages": {
+            "about": {
+                "title": "Сторінка про нас"
+            }
+        }
+    }    
+}
+  

@@ -1,0 +1,13 @@
+@import "./../../variables.scss";
+
+.btnLogin {
+    margin-left: auto;
+    display: block;
+    background-color: $main_400;
+    border: none;
+
+    &:hover {
+        background-color: transparent !important;
+        color: inherit !important;
+    }
+}
