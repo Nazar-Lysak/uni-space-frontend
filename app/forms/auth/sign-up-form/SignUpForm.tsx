@@ -29,13 +29,14 @@ const handleSelect = (value: string) => {
 
 const SignUpForm: React.FC = () => {
 
-  const { marketList, isLoading, error, fetchMarkets } = useMarketList();
+  const { marketList, isLoading, fetchMarkets } = useMarketList();
 
   const t = useTranslations("translations");
 
   useEffect(() => {
+    console.log('test')
     fetchMarkets(); 
-  }, [marketList]);
+  }, [marketList, fetchMarkets]);
 
   return (
     <Form

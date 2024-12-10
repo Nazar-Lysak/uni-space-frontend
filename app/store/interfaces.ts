@@ -5,7 +5,7 @@ export interface LoginPopupState {
 }
 
 export interface FetchMarketState {
-    marketList: any[]; 
+    marketList: Record<string, unknown>[];
     isLoading: boolean;
     error: string | null;
     fetchMarkets: () => Promise<void>;

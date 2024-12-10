@@ -1,1 +1,1 @@
-export const MARKETS_LIST_API = 'http://localhost:3001/markets';
+export const MARKETS_LIST_API = 'https://uni-space-backend-production.up.railway.app/markets';
