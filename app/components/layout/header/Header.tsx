@@ -1,3 +1,5 @@
+'use client'
+
 import { Menu } from 'antd';
 import LanguageSelector from "@/app/ui/loader/language-selector/LanguageSelector";
 import style from "./Header.module.scss";
