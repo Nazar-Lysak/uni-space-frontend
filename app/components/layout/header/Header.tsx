@@ -1,5 +1,3 @@
-"use client"
-
 import { Menu } from 'antd';
 import LanguageSelector from "@/app/ui/loader/language-selector/LanguageSelector";
 import style from "./Header.module.scss";
@@ -29,7 +27,16 @@ const Header: React.FC = () => {
           title={"About"} 
         />  
       )      
-    }    
+    },
+    {
+      key: 'admin',
+      label: (
+        <LinkComponent 
+          url={`/${language}/admin`} 
+          title={"Admin"} 
+        />  
+      )      
+    }  
   ]
 
   return (
@@ -37,10 +44,12 @@ const Header: React.FC = () => {
       <div>
         <LanguageSelector />
       </div>
-      <Menu 
-        mode="horizontal" 
-        items={nav} 
-      />
+      <div style={{padding: '0 20px', width: '270px'}}> 
+        <Menu 
+          mode={"horizontal"} 
+          items={nav} 
+        />
+      </div>      
       <LoginButton />
     </header>
   );

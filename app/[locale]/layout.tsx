@@ -1,5 +1,8 @@
 import { NextIntlClientProvider } from "next-intl";
 import { getMessages } from "next-intl/server";
+import { ConfigProvider } from 'antd';
+
+import theme from "../theme/themeConfig";
 
 import Footer from "../components/layout/footer/Footer";
 import Header from "../components/layout/header/Header";
@@ -17,16 +20,18 @@ export default async function RootLayout({
 
   return (
     <NextIntlClientProvider messages={messages}>
-      <html lang="en">
-        <body className={"body_content"}>
-          <Header />
-          <main className={"main_content"}>
-            {children}
-          </main>
-          <PopupManager />
-          <Footer />
-        </body>
-      </html>
+      <ConfigProvider theme={theme}>
+        <html lang="en">
+          <body className={"body_content"}>
+            <Header />
+            <main className={"main_content"}>
+              {children}
+            </main>
+            <PopupManager />
+            <Footer />
+          </body>
+        </html>
+      </ConfigProvider>      
     </NextIntlClientProvider>
     
   );

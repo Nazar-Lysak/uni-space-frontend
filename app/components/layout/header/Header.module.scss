@@ -1,10 +1,11 @@
 @import "../../../variables.scss";
 
 .header {
-    background-color: $main_400;
+    background-color: $bg_gray;
     padding: 20px $desktop-side-padding;
     display: flex;
     justify-content: space-between;
     align-items: center;
 }
+
 
