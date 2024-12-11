@@ -18,16 +18,14 @@
       "auth": {
         "register": "Sign Up",
         "signIn": "Sign In",
-        "forgotPassword": "Forgot Password"
-        
+        "forgotPassword": "Forgot Password"        
       },
       "messages": {
         "enterEmail" : "Please input your email!",
         "enterPassword" : "Please input your password",
         "confirmPassword" : "Please confirm your password!",
         "enterUsername" : "Please input your username!",
-        "selectMarket" : "Please select a market!"
-        
+        "selectMarket" : "Please select a market!"        
       },
       "errors": {
         "invalidEmail": "Please enter a valid email address!",
@@ -36,11 +34,22 @@
         "missmatchPassords": "Passwords do not match!"
       }
     },
-
-    "pages": {
+    "pages": {      
+      "home": {
+        "title": "Home page",
+        "linkLabel": "Home"
+      },
       "about": {
-        "title": "About page"
+        "title": "About page",
+        "linkLabel": "About"
+      },
+      "admin": {
+        "adminPanel": "Admin panel",
+        "linkLabel": "Admin"
       }
+    },
+    "footer": {
+      "title": "Main Footer"
     }
   }    
 }
