@@ -1,7 +1,7 @@
 import { create } from 'zustand';
 import { persist } from 'zustand/middleware';
 import { FetchMarketState, LanguageState, LoginPopupState } from './interfaces';
-import { fetchMarketList } from './utils/marketListApi';
+import { GetData } from '../services/get-data';
 
 export const useLanguage = create<LanguageState>()(
   persist(
@@ -32,17 +32,15 @@ export const useMarketList = create<FetchMarketState>()((set, get) => ({
   marketList: [{value: 'UK', market: 'uk'}], 
   isLoading: false, 
   error: null, 
+  
   fetchMarkets: async () => {
     const { marketList } = get();
     if (marketList.length > 1) return;
     
     set({ isLoading: true, error: null });
-    const data = await fetchMarketList();
-    if (data) {
-      setTimeout(() => {
-        set({ marketList: data, isLoading: false });
-      }, 500)
-      
+    const data = await GetData.markets();
+    if (data.data) {
+      set({ marketList: data.data, isLoading: false });      
     } else {
       set({ error: 'Error fetch list', isLoading: false });
     }
