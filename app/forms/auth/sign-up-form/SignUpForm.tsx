@@ -4,6 +4,7 @@ import { useEffect } from 'react';
 import { Button, Select, Form, Input, Typography, FormProps } from 'antd';
 import { useMarketList } from '../../../store/store';
 import Loader from '@/app/ui/loader/Loader';
+import { AuthService } from '@/app/services/auth-service';
 
 const { Title } = Typography;
 
@@ -12,11 +13,19 @@ type FieldType = {
   password?: string;
   confirmPassword?: string;
   market?: string;
-  username?: string;
+  username?: string; 
 };
 
 const onFinish: FormProps<FieldType>['onFinish'] = (values) => {
-  console.log('Success:', values);
+
+  const userdata = {
+    "name": values.username,
+    "email": values.email,
+    "password": values.password,
+    "market": values.market
+  }
+
+  AuthService.signup(userdata);
 };
 
 const onFinishFailed: FormProps<FieldType>['onFinishFailed'] = (errorInfo) => {
@@ -34,7 +43,6 @@ const SignUpForm: React.FC = () => {
   const t = useTranslations("translations");
 
   useEffect(() => {
-    console.log('test')
     fetchMarkets(); 
   }, [marketList, fetchMarkets]);
 

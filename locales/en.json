@@ -45,7 +45,15 @@
       },
       "admin": {
         "adminPanel": "Admin panel",
-        "linkLabel": "Admin"
+        "linkLabel": "Admin",
+        "usersTable": {
+          "userTableTitle": "User List",
+          "email": "Email",
+          "market": "Market",
+          "name": "Name",
+          "role": "Role",
+          "createdAt": "Registred"
+        }
       }
     },
     "footer": {
@@ -53,4 +61,3 @@
     }
   }    
 }
-  

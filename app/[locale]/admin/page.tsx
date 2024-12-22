@@ -1,3 +1,5 @@
+
+import UserList from '@/app/components/users-list/UsersList';
 import {
   AppstoreOutlined,
   CalendarOutlined,
@@ -61,14 +63,16 @@ const items: MenuItem[] = [
 
 const Admin: React.FC = () => {
 
-
   return (
-    <div>
+    <div style={{display: 'flex'}}>
       <Menu
         style={{ width: 256 }}
         mode={'inline'}
         items={items}
       />   
+      <div style={{width: '100%', padding: '20px'}}>
+        <UserList />
+      </div>
     </div>
   );
 }
