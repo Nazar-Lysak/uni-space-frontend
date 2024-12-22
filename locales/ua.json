@@ -34,10 +34,22 @@
                 "missmatchPassords": "Паролі не співпадають!"
             }
         },
-        "pages": {
+        "pages": {            
+            "home": {
+                "title": "Головна сторінка",
+                "linkLabel": "Головна"
+              },
             "about": {
-                "title": "Сторінка про нас"
+                "title": "Сторінка про нас",
+                "linkLabel": "Про нас"
+            },
+            "admin": {
+                "adminPanel": "Сторінка Адмінпанелі",
+                "linkLabel": "Адмінпанель"
             }
+        },
+        "footer": {
+            "title": "Головний футер"
         }
     }    
 }

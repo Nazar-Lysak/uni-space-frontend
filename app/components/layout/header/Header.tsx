@@ -1,5 +1,6 @@
 'use client'
 
+import { useTranslations } from 'next-intl';
 import { Menu } from 'antd';
 import LanguageSelector from "@/app/ui/loader/language-selector/LanguageSelector";
 import style from "./Header.module.scss";
@@ -9,6 +10,7 @@ import LinkComponent from "@/app/ui/link/LinkComponent";
 
 const Header: React.FC = () => {
 
+  const t = useTranslations("translations");
   const { language } = useLanguage();
 
   const nav = [
@@ -17,7 +19,7 @@ const Header: React.FC = () => {
       label: (
         <LinkComponent 
           url={`/${language}/`} 
-          title={"home"} 
+          title={t("pages.home.linkLabel")} 
         />
       ),
     },
@@ -26,7 +28,7 @@ const Header: React.FC = () => {
       label: (
         <LinkComponent 
           url={`/${language}/about`} 
-          title={"About"} 
+          title={t("pages.about.linkLabel")} 
         />  
       )      
     },
@@ -35,7 +37,7 @@ const Header: React.FC = () => {
       label: (
         <LinkComponent 
           url={`/${language}/admin`} 
-          title={"Admin"} 
+          title={t("pages.admin.linkLabel")} 
         />  
       )      
     }  
@@ -46,7 +48,7 @@ const Header: React.FC = () => {
       <div>
         <LanguageSelector />
       </div>
-      <div style={{padding: '0 20px', width: '270px'}}> 
+      <div style={{padding: '0 20px', width: '370px'}}> 
         <Menu 
           mode={"horizontal"} 
           items={nav} 

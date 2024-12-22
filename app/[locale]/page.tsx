@@ -1,10 +1,13 @@
-import React from 'react';
+import { useTranslations } from 'next-intl';
 
 const Home: React.FC = () => {
+
+  const t = useTranslations("translations");
+  
   return (
     <div>
       <h2>
-        Home Page
+        {t("pages.home.title")}
       </h2>
     </div>
   );
