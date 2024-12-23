@@ -8,6 +8,7 @@ import Footer from "../components/layout/footer/Footer";
 import Header from "../components/layout/header/Header";
 import PopupManager from "../features/popup-manager/PopupManager";
 import "./globals.css";
+import AdminPannel from "../components/admin-panel/AdminPanel";
 
 
 export default async function RootLayout({
@@ -25,14 +26,16 @@ export default async function RootLayout({
           <body className={"body_content"}>
             <Header />
             <main className={"main_content"}>
-              {children}
+              <AdminPannel />
+              <div className={"content-wrapper"}>
+                {children}
+              </div>              
             </main>
             <PopupManager />
             <Footer />
           </body>
         </html>
       </ConfigProvider>      
-    </NextIntlClientProvider>
-    
+    </NextIntlClientProvider>    
   );
 }

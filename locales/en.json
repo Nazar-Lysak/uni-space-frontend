@@ -4,7 +4,7 @@
       "submit": "Submit"
     },
     "placeholders": {
-      
+      "searchByEmail": "Search by email"
     },
     "labels": {
       "email": "Email",
@@ -42,6 +42,22 @@
       "about": {
         "title": "About page",
         "linkLabel": "About"
+      },
+      "content": {
+        "title": "Content Page",
+        "linkLabel": "Content"
+      },
+      "configuration": {
+        "title": "Configuration Page",
+        "linkLabel": "Configuration"
+      },
+      "people": {
+        "title": "Users Page",
+        "linkLabel": "Users",
+        "allUsers": {
+          "title": "Table Of Users",
+          "linkLabel": "Table Of Users"
+        }
       },
       "admin": {
         "adminPanel": "Admin panel",

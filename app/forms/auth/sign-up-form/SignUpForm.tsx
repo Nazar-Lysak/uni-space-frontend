@@ -1,10 +1,11 @@
 import { useTranslations } from 'next-intl';
 
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { Button, Select, Form, Input, Typography, FormProps } from 'antd';
 import { useMarketList } from '../../../store/store';
 import Loader from '@/app/ui/loader/Loader';
 import { AuthService } from '@/app/services/auth-service';
+import { UserSignUp } from '@/app/types/types';
 
 const { Title } = Typography;
 
@@ -16,31 +17,40 @@ type FieldType = {
   username?: string; 
 };
 
-const onFinish: FormProps<FieldType>['onFinish'] = (values) => {
-
-  const userdata = {
-    "name": values.username,
-    "email": values.email,
-    "password": values.password,
-    "market": values.market
-  }
-
-  AuthService.signup(userdata);
-};
-
-const onFinishFailed: FormProps<FieldType>['onFinishFailed'] = (errorInfo) => {
-  console.log('Failed:', errorInfo);
-};
-
-const handleSelect = (value: string) => {
-  console.log(`selected ${value}`);
-};
 
 const SignUpForm: React.FC = () => {
+
+  const [pendingRequest, setPendingRequest] = useState<boolean>(false);
 
   const { marketList, isLoading, fetchMarkets } = useMarketList();
 
   const t = useTranslations("translations");
+
+  const onFinish: FormProps<FieldType>['onFinish'] = (values) => {
+    setPendingRequest(true);  
+  
+    const userdata: UserSignUp = {
+      "name": values.username,
+      "email": values.email,
+      "password": values.password,
+      "market": values.market
+    }
+  
+    AuthService.signup(userdata)
+      .then((response) => {
+        console.log('Signup successful', response);
+      })
+      .catch((error) => {
+        console.error('Signup failed', error);
+      }) 
+      .finally(() => {
+        setPendingRequest(false);
+      });
+  };
+
+  const onFinishFailed: FormProps<FieldType>['onFinishFailed'] = (errorInfo) => {
+    console.log('Failed:', errorInfo);
+  };
 
   useEffect(() => {
     fetchMarkets(); 
@@ -64,7 +74,7 @@ const SignUpForm: React.FC = () => {
           { type: 'email', message: t("userAccess.errors.invalidEmail") },
         ]}
       >
-        <Input />
+        <Input disabled={pendingRequest} />
       </Form.Item>
 
       <Form.Item<FieldType>
@@ -75,7 +85,7 @@ const SignUpForm: React.FC = () => {
           { min: 6, message: t("userAccess.errors.invalidPassword") },
         ]}
       >
-        <Input.Password />
+        <Input.Password disabled={pendingRequest} />
       </Form.Item>
       <Form.Item<FieldType>
         label={t("labels.confirmPassword")}
@@ -93,7 +103,7 @@ const SignUpForm: React.FC = () => {
           }),
         ]}
       >
-        <Input.Password />
+        <Input.Password disabled={pendingRequest} />
       </Form.Item>
 
       <Form.Item<FieldType>
@@ -101,7 +111,7 @@ const SignUpForm: React.FC = () => {
         name="username"
         rules={[{ required: true, message: t("userAccess.messages.enterUsername") }]}
       >
-        <Input />
+        <Input disabled={pendingRequest} />
       </Form.Item>
       <Form.Item<FieldType>
         name="market" 
@@ -113,8 +123,8 @@ const SignUpForm: React.FC = () => {
           ? <Loader />
           : (
             <Select
-              onChange={handleSelect}
               options={marketList}
+              disabled={pendingRequest}
             />
           ) 
         }
@@ -124,10 +134,15 @@ const SignUpForm: React.FC = () => {
       <Form.Item label={null}>
         <Button
           type="primary"
+          disabled={pendingRequest}
           htmlType="submit"
           style={{display: 'block', marginLeft: 'auto'}}
         >
-          { t("buttons.submit") }
+          {
+            pendingRequest 
+            ? <Loader />
+            :  t("buttons.submit")             
+          }
         </Button>
       </Form.Item>
     </Form>

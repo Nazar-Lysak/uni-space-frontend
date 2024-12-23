@@ -4,7 +4,7 @@
             "submit": "Надіслати"
         },
         "placeholders": {
-            
+             "searchByEmail": "Шукати за емейлом"
         },
         "labels": {
             "email": "Електронна пошта",
@@ -42,6 +42,22 @@
             "about": {
                 "title": "Сторінка про нас",
                 "linkLabel": "Про нас"
+            },
+            "content": {
+                "title": "Сторінка контенту",
+                "linkLabel": "Контент"
+            },
+            "configuration": {
+                "title": "Сторінка налаштувань",
+                "linkLabel": "Налаштування"
+            },
+            "people": {
+                "title": "Сторінка користувачів",
+                "linkLabel": "Користувачі",
+                "allUsers": {
+                    "title": "Таблиця користувачів",
+                    "linkLabel": "Таблиця користувачів"
+                }
             },
             "admin": {
                 "adminPanel": "Сторінка Адмінпанелі",

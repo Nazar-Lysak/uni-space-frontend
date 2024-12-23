@@ -16,7 +16,7 @@ const AuthPopup: React.FC = () => {
   const { isOpen, closePopup } = useLoginPopupStore((state) => state);
   const [currentForm, setCurrentForm] = useState<"signIn" | "signUp" | "forgotPassword">("signIn");
   const t = useTranslations("translations");
-
+  
   const formComponents: Record<string, React.ReactNode> = {
     signIn: <SignInForm />,
     signUp: <SignUpForm />,

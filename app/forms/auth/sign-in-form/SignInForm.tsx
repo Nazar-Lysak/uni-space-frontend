@@ -2,20 +2,15 @@ import { useTranslations } from 'next-intl';
 
 import type { FormProps } from 'antd';
 import { Button, Checkbox, Form, Input, Typography } from 'antd';
+import { SignInFieldType } from '@/app/types/types';
 
 const { Title } = Typography;
 
-type FieldType = {
-  email?: string;
-  password?: string;
-  remember?: string;
-};
-
-const onFinish: FormProps<FieldType>['onFinish'] = (values) => {
+const onFinish: FormProps<SignInFieldType>['onFinish'] = (values) => {
   console.log('Success:', values);
 };
 
-const onFinishFailed: FormProps<FieldType>['onFinishFailed'] = (errorInfo) => {
+const onFinishFailed: FormProps<SignInFieldType>['onFinishFailed'] = (errorInfo) => {
   console.log('Failed:', errorInfo);
 };
 
@@ -33,7 +28,7 @@ const SignInForm: React.FC = () => {
       preserve={false}
     >
     <Title level={3}>{ t("userAccess.auth.signIn") }</Title>
-      <Form.Item<FieldType>
+      <Form.Item<SignInFieldType>
           label={t("labels.email")}
           name="email"
           rules={[
@@ -44,7 +39,7 @@ const SignInForm: React.FC = () => {
         <Input />
       </Form.Item>
 
-    <Form.Item<FieldType>
+    <Form.Item<SignInFieldType>
       label={t("labels.password")}
       name="password"
       rules={[{ required: true, message: t("userAccess.messages.enterPassword") }]}
@@ -52,7 +47,7 @@ const SignInForm: React.FC = () => {
       <Input.Password />
     </Form.Item>
 
-    <Form.Item<FieldType> name="remember" valuePropName="checked" label={null}>
+    <Form.Item<SignInFieldType> name="remember" valuePropName="checked" label={null}>
       <Checkbox>{t("labels.rememberMe")}</Checkbox>
     </Form.Item>
 

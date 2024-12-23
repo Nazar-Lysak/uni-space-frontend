@@ -1,3 +1,13 @@
+export interface User {
+    _id: string;
+    email: string;
+    market: string;
+    name: string;
+    role: string;
+    createdAt: string;
+  }
+
+
 export interface LoginPopupState {
     isOpen: boolean;
     openPopup: () => void;
