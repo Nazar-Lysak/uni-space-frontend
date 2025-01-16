@@ -52,3 +52,7 @@ body {
   height: 100%;
   background-color: #f8fafc;
 }
+
+.content-wrapper {
+  padding: 20px 0;
+}

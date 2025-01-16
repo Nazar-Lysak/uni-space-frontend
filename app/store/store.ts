@@ -1,7 +1,7 @@
 import { create } from 'zustand';
 import { persist } from 'zustand/middleware';
-import { FetchMarketState, LanguageState, LoginPopupState } from './interfaces';
 import { GetData } from '../services/get-data';
+import { FetchMarketState, LanguageState, LoginPopupState } from '../types/interfaces';
 
 export const useLanguage = create<LanguageState>()(
   persist(
