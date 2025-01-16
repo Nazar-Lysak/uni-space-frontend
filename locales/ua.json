@@ -4,7 +4,7 @@
             "submit": "Надіслати"
         },
         "placeholders": {
-            
+             "searchByEmail": "Шукати за емейлом"
         },
         "labels": {
             "email": "Електронна пошта",
@@ -29,6 +29,8 @@
             },
             "errors": {
                 "invalidEmail": "Будь ласка, введіть правильну електронну пошту!",
+                "wrongCredencials": "Логін або пароль невірний.",
+                "emailInUse": "Користувач з такою електронною адресою вже зареєстрований.",
                 "invalidPassword": "Пароль повинен містити не менше 6 символів!",
                 "confirmPassword": "Будь ласка, підтверджіть ваш пароль!",
                 "missmatchPassords": "Паролі не співпадають!"
@@ -43,6 +45,26 @@
                 "title": "Сторінка про нас",
                 "linkLabel": "Про нас"
             },
+            "content": {
+                "title": "Сторінка контенту",
+                "linkLabel": "Контент"
+            },
+            "configuration": {
+                "title": "Сторінка налаштувань",
+                "linkLabel": "Налаштування"
+            },
+            "profile": {
+              "title": "Сторінка Профілю",
+              "linkLabel": "Профіль"
+            },
+            "people": {
+                "title": "Сторінка користувачів",
+                "linkLabel": "Користувачі",
+                "allUsers": {
+                    "title": "Таблиця користувачів",
+                    "linkLabel": "Таблиця користувачів"
+                }
+            },
             "admin": {
                 "adminPanel": "Сторінка Адмінпанелі",
                 "linkLabel": "Адмінпанель",
@@ -54,6 +76,17 @@
                     "role": "Роль",
                     "createdAt": "Дата реєстрації"
                 }
+            },
+            "reactCourse": {
+              "title": "Книга Рецептів",
+              "linkLabel": "Книга Рецептів",
+              "recipeSearch": "Знайти рецепт",
+              "recipeTable": {
+                "title": "Назва",
+                "image": "Зображення",
+                "description": "Опис",
+                "complexity": "Склідність"
+              }
             }
         },
         "footer": {

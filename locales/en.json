@@ -4,7 +4,7 @@
       "submit": "Submit"
     },
     "placeholders": {
-      
+      "searchByEmail": "Search by email"
     },
     "labels": {
       "email": "Email",
@@ -29,6 +29,8 @@
       },
       "errors": {
         "invalidEmail": "Please enter a valid email address!",
+        "wrongCredencials": "Login or password is incorrect.",
+        "emailInUse": "A user with this email address is already registered.",
         "invalidPassword": "Password must be at least 6 characters!",
         "confirmPassword": "Please confirm your password!",
         "missmatchPassords": "Passwords do not match!"
@@ -43,6 +45,26 @@
         "title": "About page",
         "linkLabel": "About"
       },
+      "content": {
+        "title": "Content Page",
+        "linkLabel": "Content"
+      },
+      "configuration": {
+        "title": "Configuration Page",
+        "linkLabel": "Configuration"
+      },
+      "people": {
+        "title": "Users Page",
+        "linkLabel": "Users",
+        "allUsers": {
+          "title": "Table Of Users",
+          "linkLabel": "Table Of Users"
+        }
+      },
+      "profile": {
+        "title": "Profile Page",
+        "linkLabel": "Profile"
+      },
       "admin": {
         "adminPanel": "Admin panel",
         "linkLabel": "Admin",
@@ -53,6 +75,17 @@
           "name": "Name",
           "role": "Role",
           "createdAt": "Registred"
+        }
+      },
+      "reactCourse": {
+        "title": "Recipe Book",
+        "linkLabel": "Recipe Book",
+        "recipeSearch": "Find a recipe",
+        "recipeTable": {
+          "title": "Name",
+          "image": "Image",
+          "description": "Description",
+          "complexity": "Complexity"
         }
       }
     },
