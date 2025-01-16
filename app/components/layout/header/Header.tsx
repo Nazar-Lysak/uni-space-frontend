@@ -40,6 +40,15 @@ const Header: React.FC = () => {
           title={t("pages.admin.linkLabel")} 
         />  
       )      
+    },
+    {
+      key: 'recipe',
+      label: (
+        <LinkComponent 
+          url={`/${language}/recipe`} 
+          title={t("pages.reactCourse.linkLabel")} 
+        />  
+      )      
     }  
   ]
 
@@ -48,13 +57,19 @@ const Header: React.FC = () => {
       <div>
         <LanguageSelector />
       </div>
-      <div style={{padding: '0 20px', width: '370px'}}> 
+      <div style={{padding: '0 20px', width: '100%'}}> 
         <Menu 
           mode={"horizontal"} 
           items={nav} 
         />
-      </div>      
-      <LoginButton />
+      </div>   
+      <div>
+        <LinkComponent 
+          url={`/${language}/profile`} 
+          title={t("pages.profile.linkLabel")}
+        />
+        <LoginButton />
+      </div>         
     </header>
   );
 }

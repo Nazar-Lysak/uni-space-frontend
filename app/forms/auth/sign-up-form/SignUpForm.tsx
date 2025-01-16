@@ -1,8 +1,13 @@
+'use client'
+
+import { useSession } from 'next-auth/react';
+
+import { useRouter } from 'next/navigation';
 import { useTranslations } from 'next-intl';
 
 import { useEffect, useState } from 'react';
 import { Button, Select, Form, Input, Typography, FormProps } from 'antd';
-import { useMarketList } from '../../../store/store';
+import { useLanguage, useLoginPopupStore, useMarketList } from '../../../store/store';
 import Loader from '@/app/ui/loader/Loader';
 import { AuthService } from '@/app/services/auth-service';
 import { UserSignUp } from '@/app/types/types';
@@ -17,13 +22,20 @@ type FieldType = {
   username?: string; 
 };
 
-
 const SignUpForm: React.FC = () => {
 
+  const session = useSession();
+
+  console.log(session)
+
+  const router = useRouter();
+  const { language } = useLanguage();
+
   const [pendingRequest, setPendingRequest] = useState<boolean>(false);
-
   const { marketList, isLoading, fetchMarkets } = useMarketList();
-
+  const [error, setError] = useState<boolean>(false);
+   
+  const { closePopup } = useLoginPopupStore((state) => state);
   const t = useTranslations("translations");
 
   const onFinish: FormProps<FieldType>['onFinish'] = (values) => {
@@ -34,14 +46,15 @@ const SignUpForm: React.FC = () => {
       "email": values.email,
       "password": values.password,
       "market": values.market
-    }
-  
+    }    
+
     AuthService.signup(userdata)
-      .then((response) => {
-        console.log('Signup successful', response);
+      .then((/*response*/) => {        
+        closePopup();
+        router.push(`/${language}/admin/people`);
       })
-      .catch((error) => {
-        console.error('Signup failed', error);
+      .catch((/*error*/) => {
+        setError(true)
       }) 
       .finally(() => {
         setPendingRequest(false);
@@ -69,12 +82,17 @@ const SignUpForm: React.FC = () => {
       <Form.Item<FieldType>
         label={t("labels.email")}
         name="email"
+        validateStatus={error ? 'error' : ''}
+        help={error ? t("userAccess.errors.emailInUse") : ''}
         rules={[
           { required: true, message: t("userAccess.messages.enterEmail") },
           { type: 'email', message: t("userAccess.errors.invalidEmail") },
         ]}
       >
-        <Input disabled={pendingRequest} />
+        <Input 
+          disabled={pendingRequest}      
+          onFocus={() => setError(false)}    
+         />
       </Form.Item>
 
       <Form.Item<FieldType>

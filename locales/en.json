@@ -29,6 +29,8 @@
       },
       "errors": {
         "invalidEmail": "Please enter a valid email address!",
+        "wrongCredencials": "Login or password is incorrect.",
+        "emailInUse": "A user with this email address is already registered.",
         "invalidPassword": "Password must be at least 6 characters!",
         "confirmPassword": "Please confirm your password!",
         "missmatchPassords": "Passwords do not match!"
@@ -59,6 +61,10 @@
           "linkLabel": "Table Of Users"
         }
       },
+      "profile": {
+        "title": "Profile Page",
+        "linkLabel": "Profile"
+      },
       "admin": {
         "adminPanel": "Admin panel",
         "linkLabel": "Admin",
@@ -69,6 +75,17 @@
           "name": "Name",
           "role": "Role",
           "createdAt": "Registred"
+        }
+      },
+      "reactCourse": {
+        "title": "Recipe Book",
+        "linkLabel": "Recipe Book",
+        "recipeSearch": "Find a recipe",
+        "recipeTable": {
+          "title": "Name",
+          "image": "Image",
+          "description": "Description",
+          "complexity": "Complexity"
         }
       }
     },

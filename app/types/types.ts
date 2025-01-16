@@ -9,4 +9,9 @@ export type SignInFieldType = {
   
 export type UserSignUp = Partial<Pick<User, 'email' | 'market' | 'name'>> & {
     password?: string;
-  };
+};
+
+export type UserSignIn = {
+    email: string,
+    password: string
+}
