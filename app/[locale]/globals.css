@@ -38,18 +38,17 @@ body {
 }
 
 .body_content {
-  height: 100vh;
+  min-height: 100vh;
   max-width: 1280px;
   margin: 0 auto;
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
 
 }
 
 .main_content {
   padding: 15px;
-  height: 100%;
+  min-height: 80vh;
   background-color: #f8fafc;
 }
 

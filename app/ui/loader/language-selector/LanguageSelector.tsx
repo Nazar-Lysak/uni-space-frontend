@@ -1,9 +1,8 @@
 'use client';
 
 import { useEffect } from 'react';
-import { useRouter, usePathname } from 'next/navigation';
+import { useRouter, usePathname, useSearchParams } from 'next/navigation'; 
 import { availableTranslations } from '@/locales/variables';
-
 import { useLanguage } from '@/app/store/store';
 import { GlobalOutlined } from '@ant-design/icons';
 import { Dropdown, Space } from 'antd';
@@ -12,10 +11,16 @@ const LanguageSelector = () => {
     const { language, setLanguage } = useLanguage();
     const { push } = useRouter();
     const pathname = usePathname();
+    const searchParams = useSearchParams();
 
     const handleChange = (value: string) => {
+        const page = searchParams.get('page') || '1'; 
+
         const pathWithoutLang = pathname.split('/').slice(2).join('/'); 
-        const newPath = `/${value}/${pathWithoutLang}`; 
+        const newPath = page === '1' 
+        ? `/${value}/${pathWithoutLang}` 
+        : `/${value}/${pathWithoutLang}?page=${page}`;
+
         setLanguage(value);
         push(newPath); 
     };
