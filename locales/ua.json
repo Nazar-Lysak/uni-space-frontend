@@ -81,11 +81,17 @@
               "title": "Книга Рецептів",
               "linkLabel": "Книга Рецептів",
               "recipeSearch": "Знайти рецепт",
+              "editRecipe": "Редагувати рецепт",
+              "deleteRecipe": "Видалити рецепт",
+              "createRecipe": "Створити рецепт",
               "recipeTable": {
                 "title": "Назва",
                 "image": "Зображення",
                 "description": "Опис",
-                "complexity": "Склідність"
+                "complexity": "Склідність",
+                "ingredients": "Інгредієнти",
+                "recipeNotFound": "Рецепт не знайдено",
+                "backToRecipeList": "Повернутись до списку рецептів"
               }
             }
         },

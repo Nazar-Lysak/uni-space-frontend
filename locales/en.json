@@ -81,11 +81,17 @@
         "title": "Recipe Book",
         "linkLabel": "Recipe Book",
         "recipeSearch": "Find a recipe",
+        "editRecipe": "Edit recipe",
+        "deleteRecipe": "Delete recipe",
+        "createRecipe": "Create recipe",
         "recipeTable": {
           "title": "Name",
           "image": "Image",
           "description": "Description",
-          "complexity": "Complexity"
+          "complexity": "Complexity",
+          "ingredients": "Ingredients",
+          "recipeNotFound": "Recipe not found",
+          "backToRecipeList": "Back to recipe list"
         }
       }
     },
