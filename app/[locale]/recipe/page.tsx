@@ -11,9 +11,10 @@ import TitleComponent from "@/app/ui/title-component/TitleComponent";
 import { Table, Input, Space, Flex, Button } from "antd";
 const { Search } = Input;
 
-import {dataRecipes} from './recipes.js';
+import { GetData } from "@/app/services/get-data";
+import { RecipeInterface } from "@/app/types/interfaces";
 
-interface Recipe {
+interface columnType {
   key: string;
   id: string;
   image: string;
@@ -29,11 +30,22 @@ const Recipe: React.FC = () => {
 
   const [searchRecipe, setSearchRecipe] = useState<string>('');
   const [currentPage, setCurrentPage] = useState<number>(1);
+  const [recipes, setRecipes] = useState<RecipeInterface[]>([]);
+  const [loading, setLoading] = useState<boolean>(false); 
 
-  useEffect(() => {
+  useEffect(() => {   
+    setLoading(true);
+    GetData.recipes()
+      .then((response) => {
+        setRecipes(response.data);
+      })
+      .finally(() => {
+        setLoading(false); 
+      });
+    
     const page = searchParams.get("page") || '1';
     setCurrentPage(Number(page));
-  }, [])
+  }, [searchParams]);
 
   const t = useTranslations("translations");  
   
@@ -55,7 +67,7 @@ const Recipe: React.FC = () => {
     }    
   };
 
-  const columns: ColumnsType<Recipe> = [    
+  const columns: ColumnsType<columnType> = [    
     {
       title: t("pages.reactCourse.recipeTable.image"),
       dataIndex: 'image',
@@ -82,7 +94,7 @@ const Recipe: React.FC = () => {
       dataIndex: 'title',
       key: 'title',
       width: '25%',
-      sorter: (a:Recipe, b:Recipe) => a.title.localeCompare(b.title)
+      sorter: (a:columnType, b:columnType) => a.title.localeCompare(b.title)
     },
     {
       title: t("pages.reactCourse.recipeTable.description"),
@@ -94,22 +106,22 @@ const Recipe: React.FC = () => {
       dataIndex: 'complexity',
       key: 'complexity',
       width: '10%',
-      sorter: (a:Recipe, b:Recipe) => a.complexity - b.complexity,
+      sorter: (a: columnType, b: columnType) => (a.complexity ?? 0) - (b.complexity ?? 0)
     },
   ];
   
-  const recipeList = dataRecipes
+  const recipeList = recipes
     .filter(recipe => searchRecipe.length === 0 
-      || recipe.name.toLocaleLowerCase()
+      || recipe.title.toLocaleLowerCase()
       .includes(searchRecipe.toLocaleLowerCase()))
     .map(recipe => {
       return ({
-        key: recipe.id,
-        id: recipe.id,
-        image: recipe.photo,
-        title: recipe.name,
-        description: recipe.description,
-        complexity: recipe.difficultyLevel
+        key: recipe._id,
+        id: recipe._id,
+        image: recipe.imageUrl,
+        title: recipe.title,
+        description: recipe.shortDescription,
+        complexity: recipe.difficulty
       })
     })
 
@@ -145,6 +157,7 @@ const Recipe: React.FC = () => {
             style: { cursor: 'pointer' }
           })}
           pagination={paginationConfig}
+          loading={loading}
         />
       </Space>
     </>

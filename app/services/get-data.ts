@@ -8,5 +8,11 @@ export const GetData = {
     },
     users: () => {
         return axiosClient.get(`${SERVER_ORIGIN}${URLs.users.get}`);
+    },
+    recipes: () => {
+        return axiosClient.get(`${SERVER_ORIGIN}${URLs.recipes.get}`);
+    },
+    currentRecipe: (recipeId:string) => {
+        return axiosClient.get(`${SERVER_ORIGIN}${URLs.recipes.get}/${recipeId}`);
     }
 }
