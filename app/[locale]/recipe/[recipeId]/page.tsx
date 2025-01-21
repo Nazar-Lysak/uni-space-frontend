@@ -6,12 +6,10 @@ import Image from "next/image";
 
 import TitleComponent from "@/app/ui/title-component/TitleComponent";
 
-import { Divider, Flex, Button, Typography } from "antd";
+import { Divider, Flex, Button, Typography, Modal } from "antd";
 import dayjs from 'dayjs';
 import 'dayjs/locale/en';
 import 'dayjs/locale/uk';
-
-
 
 import LinkComponent from "@/app/ui/link/LinkComponent";
 import { useLanguage } from "@/app/store/store";
@@ -19,6 +17,8 @@ import { CheckCircleOutlined, StarFilled, StarOutlined } from "@ant-design/icons
 import { GetData } from "@/app/services/get-data";
 import { RecipeInterface } from "@/app/types/interfaces";
 import PageLoader from "@/app/ui/page-loader/PageLoader";
+import { DeleteData } from "@/app/services/delete-data";
+import { useRouter } from "next/navigation";
 
 const Recipe = ({ params }: { params: { recipeId: string } }) => {
   const [recipe, setRecipe] = useState<RecipeInterface>();
@@ -26,6 +26,7 @@ const Recipe = ({ params }: { params: { recipeId: string } }) => {
 
   const t = useTranslations("translations");
   const { language } = useLanguage();
+  const router = useRouter();
 
   const timeLanguageParser = language === 'ua' ? 'uk' : 'en';
 
@@ -34,7 +35,7 @@ const Recipe = ({ params }: { params: { recipeId: string } }) => {
       setLoading(true);
       try {
         const response = await GetData.currentRecipe(params.recipeId);
-        setRecipe(response.data);
+        setRecipe(response.data);        
       } catch (error) {
         console.error("Error fetching recipe:", error);
       } finally {
@@ -44,6 +45,36 @@ const Recipe = ({ params }: { params: { recipeId: string } }) => {
 
     fetchRecipe();
   }, [params.recipeId]);
+
+  const deleteRecipe = (recipeId: string) => {
+    Modal.confirm({
+      title: 'Are you sure you want to delete this recipe?',
+      content: 'Once deleted, this action cannot be undone.',
+      okText: 'Yes, Delete',
+      okType: 'danger',
+      cancelText: 'Cancel',
+      onOk: () => {
+        setLoading(true);
+  
+        DeleteData.deleteRecipe(recipeId)
+          .then(() => {
+            Modal.success({
+              title: 'Recipe Deleted',
+              content: 'The recipe has been successfully deleted.',
+              okText: 'OK',
+              onOk: () => {
+                setTimeout(() => {
+                  router.push(`/${language}/recipe`);
+                }, 400);                
+              }
+            });
+          })
+          .finally(() => {
+            setLoading(false);
+          });
+      }
+    });
+  };
 
   if (loading) {
     return <PageLoader />
@@ -81,7 +112,7 @@ const Recipe = ({ params }: { params: { recipeId: string } }) => {
             <StarOutlined key={index} style={{ marginBottom: "5px" }} />
           )
         ))}
-      </Flex>
+      </Flex>     
 
       <Divider />
 
@@ -121,11 +152,19 @@ const Recipe = ({ params }: { params: { recipeId: string } }) => {
       <Divider />
 
       <Flex justify="end" gap={20}>
-        <Button type="primary" danger>
+        <Button 
+          type="primary" 
+          danger
+          onClick={() => deleteRecipe(params.recipeId)}
+        >
           {t("pages.reactCourse.deleteRecipe")}
         </Button>
-        <Button type="primary">{t("pages.reactCourse.editRecipe")}</Button>
-      </Flex>
+        <Button 
+          type="primary"
+        >
+          {t("pages.reactCourse.editRecipe")}
+        </Button>
+      </Flex>      
     </>
   );
 };

@@ -36,3 +36,13 @@ export interface RecipeInterface {
     instructions: string;
     _id: string;    
 }
+
+export interface RecipePostData {
+    title: string;
+    imageUrl: string;
+    shortDescription: string;
+    difficulty: number;
+    ingredients: (string | number)[];
+    instructions: string;
+    createdBy: string;
+}

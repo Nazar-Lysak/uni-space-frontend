@@ -2,17 +2,20 @@
 import { ColumnsType } from "antd/es/table";
 import { useRouter, useSearchParams } from "next/navigation";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 import Image from 'next/image'
 
 import { useTranslations } from 'next-intl';
 import TitleComponent from "@/app/ui/title-component/TitleComponent";
 
-import { Table, Input, Space, Flex, Button } from "antd";
+import { Table, Input, Space, Flex, Button, Form, message } from "antd";
 const { Search } = Input;
 
 import { GetData } from "@/app/services/get-data";
 import { RecipeInterface } from "@/app/types/interfaces";
+import DrawerComponent from "@/app/ui/drawer-component/DrawerComponent";
+import CreateRecipe from "@/app/forms/create-recipe/CreateRecipe";
+import { PostData } from "@/app/services/post-data";
 
 interface columnType {
   key: string;
@@ -23,17 +26,32 @@ interface columnType {
   complexity: number;
 }
 
+interface Ingredient {
+  last: string;
+}
+
+interface Recipe {
+  complexity: number;
+  image: string;
+  ingredients: Ingredient[];
+  instructions: string;
+  short: string;
+  title: string;
+}
+
 const Recipe: React.FC = () => {
 
   const router = useRouter();
   const searchParams = useSearchParams();
+  const [form] = Form.useForm();
 
   const [searchRecipe, setSearchRecipe] = useState<string>('');
   const [currentPage, setCurrentPage] = useState<number>(1);
   const [recipes, setRecipes] = useState<RecipeInterface[]>([]);
-  const [loading, setLoading] = useState<boolean>(false); 
+  const [loading, setLoading] = useState<boolean>(false);
+  const [showDrawer, setShowDrawer] = useState<boolean>(false);
 
-  useEffect(() => {   
+  const getRecipes = useCallback(() => {
     setLoading(true);
     GetData.recipes()
       .then((response) => {
@@ -46,6 +64,10 @@ const Recipe: React.FC = () => {
     const page = searchParams.get("page") || '1';
     setCurrentPage(Number(page));
   }, [searchParams]);
+
+  useEffect(() => {   
+    getRecipes();
+  }, [searchParams, getRecipes]);
 
   const t = useTranslations("translations");  
   
@@ -66,6 +88,42 @@ const Recipe: React.FC = () => {
       router.replace(`?page=${page}`);
     }    
   };
+
+  const closeDrawer = (bool: boolean) => {
+    setShowDrawer(bool);
+    form.resetFields();
+  }
+
+  const addRecipe = (values: Recipe) => {
+
+    console.log(values)
+
+    const ingredientsList: (string | number)[] = values.ingredients.map((ingredient) => ingredient.last);
+
+    const recipeData = {
+      "title": values.title,
+      "imageUrl": values.image,
+      "shortDescription": values.short,
+      "difficulty": Number(values.complexity),
+      "ingredients": ingredientsList,
+      "instructions": values.instructions,
+      "createdBy": "user"
+    };
+
+    setLoading(true)
+    PostData.addRecipe(recipeData)
+    .then(() => {
+      form.resetFields();
+      setShowDrawer(false);
+      if (!loading && showDrawer) {
+        message.success("Recipe created successfully!");        
+      }
+      getRecipes();      
+    })
+    .finally(() => {
+      setLoading(false);         
+    }) 
+  }
 
   const columns: ColumnsType<columnType> = [    
     {
@@ -143,11 +201,24 @@ const Recipe: React.FC = () => {
             placeholder={t("pages.reactCourse.recipeSearch")} 
             onChange={(e) => onSearch(e.target.value)} 
           />
-          <Button type="primary">
+          <Button 
+            type="primary"
+            onClick={() => closeDrawer(true)}
+          >
             {t("pages.reactCourse.createRecipe")}
           </Button>
         </Flex>
-        
+        <DrawerComponent 
+          showDrawer={showDrawer}
+          closeDrawer={setShowDrawer}
+          drawerTitle={"Create Recipe"}
+          form={form}
+        >     
+          <CreateRecipe 
+            form={form} 
+            onSubmit={addRecipe}
+          />
+        </DrawerComponent>   
 
         <Table 
           dataSource={recipeList} 
