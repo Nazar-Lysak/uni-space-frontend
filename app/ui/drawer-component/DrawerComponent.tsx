@@ -12,6 +12,7 @@ interface DrawerComponentProps {
 const DrawerComponent: React.FC<DrawerComponentProps> = ({ children, drawerTitle, showDrawer, closeDrawer, form }) => {
   return (
     <Drawer 
+      key={showDrawer ? 'open' : 'close'}
       title={drawerTitle}
       onClose={() => closeDrawer(false)} 
       open={showDrawer}

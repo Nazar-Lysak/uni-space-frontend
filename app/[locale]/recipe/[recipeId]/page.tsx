@@ -6,7 +6,7 @@ import Image from "next/image";
 
 import TitleComponent from "@/app/ui/title-component/TitleComponent";
 
-import { Divider, Flex, Button, Typography, Modal } from "antd";
+import { Divider, Flex, Button, Typography, Modal, Form, message } from "antd";
 import dayjs from 'dayjs';
 import 'dayjs/locale/en';
 import 'dayjs/locale/uk';
@@ -15,37 +15,56 @@ import LinkComponent from "@/app/ui/link/LinkComponent";
 import { useLanguage } from "@/app/store/store";
 import { CheckCircleOutlined, StarFilled, StarOutlined } from "@ant-design/icons";
 import { GetData } from "@/app/services/get-data";
-import { RecipeInterface } from "@/app/types/interfaces";
+import { RecipeInterface, RecipePostData } from "@/app/types/interfaces";
 import PageLoader from "@/app/ui/page-loader/PageLoader";
 import { DeleteData } from "@/app/services/delete-data";
 import { useRouter } from "next/navigation";
+import DrawerComponent from "@/app/ui/drawer-component/DrawerComponent";
+import CreateRecipe from "@/app/forms/create-recipe/CreateRecipe";
+import { PutData } from "@/app/services/put-data";
+
+interface Ingredient {
+  last: string;
+}
+
+interface Recipe {
+  title: string;
+  image: string;
+  short: string;
+  Complexity: number;
+  ingredients: Ingredient[];
+  instructions: string;
+}
 
 const Recipe = ({ params }: { params: { recipeId: string } }) => {
   const [recipe, setRecipe] = useState<RecipeInterface>();
   const [loading, setLoading] = useState(false);
+  const [showDrawer, setShowDrawer] = useState<boolean>(false);
+  const [messageApi, contextHolder] = message.useMessage();
 
   const t = useTranslations("translations");
   const { language } = useLanguage();
   const router = useRouter();
+  const [form] = Form.useForm();
 
   const timeLanguageParser = language === 'ua' ? 'uk' : 'en';
 
-  useEffect(() => {
-    const fetchRecipe = async () => {
-      setLoading(true);
-      try {
-        const response = await GetData.currentRecipe(params.recipeId);
-        setRecipe(response.data);        
-      } catch (error) {
-        console.error("Error fetching recipe:", error);
-      } finally {
-        setLoading(false);
-      }
-    };
+  const fetchRecipe = async () => {
+    setLoading(true);
+    try {
+      const response = await GetData.currentRecipe(params.recipeId);
+      setRecipe(response.data);        
+    } catch (error) {
+      console.error("Error fetching recipe:", error);
+    } finally {
+      setLoading(false);
+    }
+  };
 
+  useEffect(() => {
     fetchRecipe();
   }, [params.recipeId]);
-
+  
   const deleteRecipe = (recipeId: string) => {
     Modal.confirm({
       title: 'Are you sure you want to delete this recipe?',
@@ -71,10 +90,52 @@ const Recipe = ({ params }: { params: { recipeId: string } }) => {
           })
           .finally(() => {
             setLoading(false);
+            fetchRecipe();
           });
       }
     });
   };
+
+  const editRecipe = (values: Recipe) => {
+
+    const ingredientsList: (string | number)[] = values.ingredients.map((ingredient) => ingredient.last);
+  
+    Modal.confirm({
+      title: 'Are you sure you want to edit this recipe?',
+      content: 'Please confirm that the details are correct before submitting.',
+
+      onOk: () => {
+        setLoading(true);
+        const updatedRecipeData:RecipePostData = {
+          "title": values.title,
+          "imageUrl": values.image,
+          "shortDescription": values.short,
+          "difficulty": Number(values.Complexity),
+          "ingredients": ingredientsList, 
+          "instructions": values.instructions,
+          "createdBy": "user"
+        };
+    
+        PutData.putRecipe(params.recipeId, updatedRecipeData)
+          .then(() => {
+            form.resetFields();
+            setShowDrawer(false);
+            messageApi.success("Recipe edited successfully!");
+          })
+          .catch((error) => {
+            messageApi.error("Error editing recipe");
+            console.error("Error editing recipe", error);
+          })
+          .finally(() => {
+            setLoading(false);
+            fetchRecipe();
+          });
+      },
+      onCancel: () => {
+        console.log('Recipe creation canceled');
+      }
+    });
+  }
 
   if (loading) {
     return <PageLoader />
@@ -91,6 +152,7 @@ const Recipe = ({ params }: { params: { recipeId: string } }) => {
 
   return (
     <>
+      {contextHolder}
       <Flex align="center" justify="space-between">
         <TitleComponent level={1} title={recipe.title} />
         <LinkComponent
@@ -117,15 +179,17 @@ const Recipe = ({ params }: { params: { recipeId: string } }) => {
       <Divider />
 
       <Flex style={{ paddingBottom: "20px" }}>
-        <Image
-          src={recipe.imageUrl}
-          alt={recipe.title}
-          width={300}
-          height={300}
-          style={{ borderRadius: "4px" }}
-          unoptimized
-          priority
-        />
+      <Image
+        src={recipe?.imageUrl || ""}
+        alt={recipe?.title || "Recipe Image"}
+        width={300}
+        height={200} 
+        style={{
+          borderRadius: "4px",
+        }}
+        unoptimized
+        priority
+      />
         <p style={{ padding: "0 40px" }}>{recipe.instructions}</p>
       </Flex>
 
@@ -161,10 +225,23 @@ const Recipe = ({ params }: { params: { recipeId: string } }) => {
         </Button>
         <Button 
           type="primary"
+          onClick={() => setShowDrawer(true)}
         >
           {t("pages.reactCourse.editRecipe")}
         </Button>
-      </Flex>      
+      </Flex>    
+      <DrawerComponent 
+          showDrawer={showDrawer}
+          closeDrawer={setShowDrawer}
+          drawerTitle={"Edite Recipe"}
+          form={form}
+        >     
+          <CreateRecipe 
+            form={form} 
+            onSubmit={editRecipe}
+            recipe={recipe}
+          />
+        </DrawerComponent>   
     </>
   );
 };
