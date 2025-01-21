@@ -9,7 +9,7 @@ interface Ingredient {
 }
 
 interface Recipe {
-  complexity: number;
+  Complexity: number;
   image: string;
   ingredients: Ingredient[];
   instructions: string;
