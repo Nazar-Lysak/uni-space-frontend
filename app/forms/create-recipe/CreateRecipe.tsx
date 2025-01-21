@@ -1,17 +1,14 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Form, Input, Select, Space, Button, FormInstance } from 'antd';
 import { MinusCircleOutlined, PlusOutlined } from '@ant-design/icons';
+import { RecipeInterface } from '@/app/types/interfaces';
 const { Option } = Select;
 const { TextArea } = Input;
-
-interface Ingredient {
-  last: string;
-}
 
 interface Recipe {
   Complexity: number;
   image: string;
-  ingredients: Ingredient[];
+  ingredients: { last: string }[];
   instructions: string;
   short: string;
   title: string;
@@ -19,10 +16,25 @@ interface Recipe {
 
 interface CreateRecipeProps {
   form: FormInstance;
-  onSubmit: (values: Recipe) => void;
+  recipe?: RecipeInterface;
+  onSubmit?: (values: Recipe) => void;  
 }
 
-const CreateRecipe: React.FC<CreateRecipeProps> = ({ form, onSubmit }) => (
+const CreateRecipe: React.FC<CreateRecipeProps> = ({ form, onSubmit, recipe }) => {
+  useEffect(() => {
+    if (recipe && recipe.ingredients?.length > 0) {
+      form.setFieldsValue({
+        title: recipe.title || "",
+        Complexity: recipe.difficulty || "",
+        image: recipe.imageUrl || "",
+        short: recipe.shortDescription || "",
+        instructions: recipe.instructions || "",
+        ingredients: recipe.ingredients.map((ingredient) => ({ last: ingredient })) || [{}],
+      });
+    }
+  }, [recipe, form]);
+  
+  return (
   
   <Form
     form={form}
@@ -34,12 +46,17 @@ const CreateRecipe: React.FC<CreateRecipeProps> = ({ form, onSubmit }) => (
     colon={false}
     style={{ maxWidth: 600 }}
     initialValues={{
-      ingredients: [{}],
+      title: recipe?.title || "",
+      Complexity: recipe?.difficulty || "",
+      image: recipe?.imageUrl || "",
+      short: recipe?.shortDescription || "",
+      instructions: recipe?.instructions || "",
+      ingredients: recipe?.ingredients?.map(ingredient => ({ last: ingredient })) || [{}],
     }}
     onFinish={onSubmit}
   >
     <Form.Item label="Recipe Title" name="title" rules={[{ required: true }]}>
-      <Input />
+      <Input/>
     </Form.Item>
 
     <Form.Item
@@ -47,7 +64,10 @@ const CreateRecipe: React.FC<CreateRecipeProps> = ({ form, onSubmit }) => (
       name="Complexity"
       rules={[{ required: true, message: 'Please select a complexity level!' }]}
     >
-      <Select placeholder="Select complexity">
+      <Select 
+        placeholder="Select complexity" 
+        
+      >
         {[1, 2, 3, 4, 5].map((value) => (
           <Option key={value} value={value.toString()}>
             {value}
@@ -65,7 +85,7 @@ const CreateRecipe: React.FC<CreateRecipeProps> = ({ form, onSubmit }) => (
       label="Short Descrtiption"
       rules={[{ required: true, message: 'Please input Short Description' }]}
     >
-      <TextArea showCount maxLength={600} />
+      <TextArea showCount maxLength={300} />
     </Form.Item>
 
     <Form.Item
@@ -77,33 +97,55 @@ const CreateRecipe: React.FC<CreateRecipeProps> = ({ form, onSubmit }) => (
     </Form.Item>
 
     <Form.List name="ingredients">
-      {(fields, { add, remove }) => (
-        <>
-          {fields.map(({ key, name, ...restField }) => (
-            <Space 
-              key={key} 
-              style={{ display: 'flex', width: '100%', marginBottom: 8 }} 
-            >              
+    {(fields, { add, remove }) => (
+      <>    
+        {recipe && recipe?.ingredients?.length > 0
+          ? fields.map(({ key, name, ...restField }) => (
+            <Space
+              key={key}
+              style={{ display: 'flex', width: '100%', marginBottom: 8 }}
+            >
               <Form.Item
                 {...restField}
                 name={[name, 'last']}
-                label="Ingredients"
-                style={{ width: '100%' }} 
+                label="Ingredient"
+                style={{ width: '100%' }}
+                rules={[{ required: true, message: 'Please input an ingredient' }]}
+              >
+                <Input placeholder="Ingredient"/>
+              </Form.Item>
+              <MinusCircleOutlined
+                style={{ marginLeft: 8, cursor: 'pointer' }}
+                onClick={() => remove(name)}
+              />
+            </Space>
+          ))
+          :
+          fields.map(({ key, name, ...restField }) => (
+            <Space
+              key={key}
+              style={{ display: 'flex', width: '100%', marginBottom: 8 }}
+            >
+              <Form.Item
+                {...restField}
+                name={[name, 'last']}
+                label="Ingredient"
+                style={{ width: '100%' }}
                 rules={[{ required: true, message: 'Please input an ingredient' }]}
               >
                 <Input placeholder="Ingredient" />
               </Form.Item>
-              <MinusCircleOutlined 
-                style={{ marginLeft: 8, cursor: 'pointer' }} 
-                onClick={() => remove(name)} 
+              <MinusCircleOutlined
+                style={{ marginLeft: 8, cursor: 'pointer' }}
+                onClick={() => remove(name)}
               />
-            </Space>          
+            </Space>
           ))}
           <Form.Item>
-            <Button 
-              type="dashed" 
-              onClick={() => add()} 
-              block 
+            <Button
+              type="dashed"
+              onClick={() => add()}
+              block
               icon={<PlusOutlined />}
             >
               Add ingredient
@@ -112,7 +154,8 @@ const CreateRecipe: React.FC<CreateRecipeProps> = ({ form, onSubmit }) => (
         </>
       )}
     </Form.List>
+
   </Form>
-);
+)};
 
 export default CreateRecipe;

@@ -26,14 +26,10 @@ interface columnType {
   complexity: number;
 }
 
-interface Ingredient {
-  last: string;
-}
-
 interface Recipe {
   Complexity: number;
   image: string;
-  ingredients: Ingredient[];
+  ingredients: { last: string }[];
   instructions: string;
   short: string;
   title: string;
@@ -44,6 +40,7 @@ const Recipe: React.FC = () => {
   const router = useRouter();
   const searchParams = useSearchParams();
   const [form] = Form.useForm();
+  const [messageApi, contextHolder] = message.useMessage();
 
   const [searchRecipe, setSearchRecipe] = useState<string>('');
   const [currentPage, setCurrentPage] = useState<number>(1);
@@ -114,7 +111,7 @@ const Recipe: React.FC = () => {
       form.resetFields();
       setShowDrawer(false);
       if (!loading && showDrawer) {
-        message.success("Recipe created successfully!");        
+        messageApi.success("Recipe created successfully!");       
       }
       getRecipes();      
     })
@@ -189,6 +186,7 @@ const Recipe: React.FC = () => {
 
   return (
     <>
+      {contextHolder}
       <TitleComponent 
         level={3} 
         title={t("pages.reactCourse.title")}
@@ -208,7 +206,7 @@ const Recipe: React.FC = () => {
         </Flex>
         <DrawerComponent 
           showDrawer={showDrawer}
-          closeDrawer={setShowDrawer}
+          closeDrawer={closeDrawer}
           drawerTitle={"Create Recipe"}
           form={form}
         >     
