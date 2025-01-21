@@ -14,5 +14,12 @@ export const URLs = {
     },
     markets: {
         get: '/api/markets'
+    },
+    recipes: {
+        get: '/api/recipes',
+        getSingle: '/api/recipes',
+        post: '/api/recipes',
+        put: '/api/recipes',
+        delete: '/api/recipes'
     }
 }

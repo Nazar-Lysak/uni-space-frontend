@@ -2,7 +2,7 @@
 
 import { useTranslations } from 'next-intl';
 import { Menu } from 'antd';
-import LanguageSelector from "@/app/ui/loader/language-selector/LanguageSelector";
+import LanguageSelector from "@/app/ui/language-selector/LanguageSelector";
 import style from "./Header.module.scss";
 import LoginButton from '@/app/features/login-button/LoginButton';
 import { useLanguage } from "@/app/store/store";

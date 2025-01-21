@@ -5,8 +5,7 @@ export interface User {
     name: string;
     role: string;
     createdAt: string;
-  }
-
+}
 
 export interface LoginPopupState {
     isOpen: boolean;
@@ -24,4 +23,26 @@ export interface FetchMarketState {
 export interface LanguageState {
     language: string;
     setLanguage: (language: string) => void;
+}
+
+export interface RecipeInterface {
+    createdAt: string;
+    createdBy: string;
+    difficulty:number;
+    imageUrl: string;
+    ingredients: [];
+    title: string;
+    shortDescription: string;
+    instructions: string;
+    _id: string;    
+}
+
+export interface RecipePostData {
+    title: string;
+    imageUrl: string;
+    shortDescription: string;
+    difficulty: number;
+    ingredients: (string | number)[];
+    instructions: string;
+    createdBy: string;
 }
