@@ -92,6 +92,35 @@
           "ingredients": "Ingredients",
           "recipeNotFound": "Recipe not found",
           "backToRecipeList": "Back to recipe list"
+        },
+        "recipePage": {
+          "deleteRecipe": "Are you sure you want to delete this recipe?",
+          "deleteRecipeContent": "Once deleted, this action cannot be undone",
+          "deleteAllow": "Yes, Delete",
+          "deleteDisallow": "Cancel",
+          "recipeDeleted": "Recipe Deleted",
+          "recipeDeletedContent": "The recipe has been successfully deleted.",
+          "ok": "Ok",
+          "sureToRemove": "Are you sure you want to edit this recipe?",
+          "confirmRemove": "Please confirm that the details are correct before submitting.",
+          "recipeEdited": "Recipe edited successfully!"
+        },
+        "recipeDrawer": {
+          "cancel": "Cancel",
+          "confirm": "Confirm"
+        },
+        "createRecipeForm": {
+          "recipeTitle": "Recipe Title",
+          "complexity": "Complexity",
+          "inputComplexity": "Please select a complexity level!",
+          "image": "Image Url",
+          "shortDescr": "Short Descrtiption",
+          "inputShortDescr": "Please input Short Description",
+          "instructions": "Instructions",
+          "inputInstructions": "Please Input Instructions",
+          "ingredient": "Ingredient",
+          "inputIngredient": "Please input an ingredient",
+          "addIngredient": "Add ingredient"
         }
       }
     },

@@ -67,20 +67,20 @@ const Recipe = ({ params }: { params: { recipeId: string } }) => {
   
   const deleteRecipe = (recipeId: string) => {
     Modal.confirm({
-      title: 'Are you sure you want to delete this recipe?',
-      content: 'Once deleted, this action cannot be undone.',
-      okText: 'Yes, Delete',
+      title: t("pages.reactCourse.recipePage.deleteRecipe"),
+      content: t("pages.reactCourse.recipePage.deleteRecipeContent"),
+      okText: t("pages.reactCourse.recipePage.deleteAllow"),
       okType: 'danger',
-      cancelText: 'Cancel',
+      cancelText: t("pages.reactCourse.recipePage.deleteDisallow"),
       onOk: () => {
         setLoading(true);
   
         DeleteData.deleteRecipe(recipeId)
           .then(() => {
             Modal.success({
-              title: 'Recipe Deleted',
-              content: 'The recipe has been successfully deleted.',
-              okText: 'OK',
+              title: t("pages.reactCourse.recipePage.recipeDeleted"),
+              content: t("pages.reactCourse.recipePage.recipeDeletedContent"),
+              okText: t("pages.reactCourse.recipePage.ok"),
               onOk: () => {
                 setTimeout(() => {
                   router.push(`/${language}/recipe`);
@@ -101,8 +101,8 @@ const Recipe = ({ params }: { params: { recipeId: string } }) => {
     const ingredientsList: (string | number)[] = values.ingredients.map((ingredient) => ingredient.last);
   
     Modal.confirm({
-      title: 'Are you sure you want to edit this recipe?',
-      content: 'Please confirm that the details are correct before submitting.',
+      title: t("pages.reactCourse.recipePage.sureToRemove"),
+      content: t("pages.reactCourse.recipePage.confirmRemove"),
 
       onOk: () => {
         setLoading(true);
@@ -120,7 +120,7 @@ const Recipe = ({ params }: { params: { recipeId: string } }) => {
           .then(() => {
             form.resetFields();
             setShowDrawer(false);
-            messageApi.success("Recipe edited successfully!");
+            messageApi.success(t("pages.reactCourse.recipePage.recipeEdited"));
           })
           .catch((error) => {
             messageApi.error("Error editing recipe");
@@ -179,17 +179,17 @@ const Recipe = ({ params }: { params: { recipeId: string } }) => {
       <Divider />
 
       <Flex style={{ paddingBottom: "20px" }}>
-      <Image
-        src={recipe?.imageUrl || ""}
-        alt={recipe?.title || "Recipe Image"}
-        width={300}
-        height={200} 
-        style={{
-          borderRadius: "4px",
-        }}
-        unoptimized
-        priority
-      />
+        <Image
+          src={recipe?.imageUrl || ""}
+          alt={recipe?.title || "Recipe Image"}
+          width={300}
+          height={200} 
+          style={{
+            borderRadius: "4px",
+          }}
+          unoptimized
+          priority
+        />
         <p style={{ padding: "0 40px" }}>{recipe.instructions}</p>
       </Flex>
 
@@ -233,7 +233,7 @@ const Recipe = ({ params }: { params: { recipeId: string } }) => {
       <DrawerComponent 
           showDrawer={showDrawer}
           closeDrawer={setShowDrawer}
-          drawerTitle={"Edite Recipe"}
+          drawerTitle={t("pages.reactCourse.editRecipe")}
           form={form}
         >     
           <CreateRecipe 
