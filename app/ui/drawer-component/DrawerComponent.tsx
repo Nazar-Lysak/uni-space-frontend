@@ -1,5 +1,6 @@
 import React from 'react';
 import { Drawer, Button, FormInstance } from 'antd';
+import { useTranslations } from 'use-intl';
 
 interface DrawerComponentProps {
     drawerTitle?: string;
@@ -10,6 +11,9 @@ interface DrawerComponentProps {
 }
 
 const DrawerComponent: React.FC<DrawerComponentProps> = ({ children, drawerTitle, showDrawer, closeDrawer, form }) => {
+
+  const t = useTranslations("translations");
+
   return (
     <Drawer 
       key={showDrawer ? 'open' : 'close'}
@@ -22,13 +26,13 @@ const DrawerComponent: React.FC<DrawerComponentProps> = ({ children, drawerTitle
             onClick={() => closeDrawer(false)} 
             style={{ marginRight: 8 }}
             >
-            Cancel
+            {t("pages.reactCourse.recipeDrawer.cancel")}
           </Button>
           <Button 
             type="primary" 
             onClick={() => form.submit()}
           >
-            Confirm
+            {t("pages.reactCourse.recipeDrawer.confirm")}
           </Button>
         </div>
       }
