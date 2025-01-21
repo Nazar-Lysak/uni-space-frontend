@@ -31,7 +31,7 @@ interface Ingredient {
 }
 
 interface Recipe {
-  complexity: number;
+  Complexity: number;
   image: string;
   ingredients: Ingredient[];
   instructions: string;
@@ -67,7 +67,7 @@ const Recipe: React.FC = () => {
 
   useEffect(() => {   
     getRecipes();
-  }, [searchParams, getRecipes]);
+  }, []);
 
   const t = useTranslations("translations");  
   
@@ -96,15 +96,13 @@ const Recipe: React.FC = () => {
 
   const addRecipe = (values: Recipe) => {
 
-    console.log(values)
-
     const ingredientsList: (string | number)[] = values.ingredients.map((ingredient) => ingredient.last);
 
     const recipeData = {
       "title": values.title,
       "imageUrl": values.image,
       "shortDescription": values.short,
-      "difficulty": Number(values.complexity),
+      "difficulty": Number(values.Complexity),
       "ingredients": ingredientsList,
       "instructions": values.instructions,
       "createdBy": "user"
