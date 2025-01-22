@@ -2,6 +2,7 @@ import React, { useEffect } from 'react';
 import { Form, Input, Select, Space, Button, FormInstance } from 'antd';
 import { MinusCircleOutlined, PlusOutlined } from '@ant-design/icons';
 import { RecipeInterface } from '@/app/types/interfaces';
+import { useTranslations } from 'next-intl';
 const { Option } = Select;
 const { TextArea } = Input;
 
@@ -21,6 +22,9 @@ interface CreateRecipeProps {
 }
 
 const CreateRecipe: React.FC<CreateRecipeProps> = ({ form, onSubmit, recipe }) => {
+
+  const t = useTranslations("translations");
+
   useEffect(() => {
     if (recipe && recipe.ingredients?.length > 0) {
       form.setFieldsValue({
@@ -55,14 +59,14 @@ const CreateRecipe: React.FC<CreateRecipeProps> = ({ form, onSubmit, recipe }) =
     }}
     onFinish={onSubmit}
   >
-    <Form.Item label="Recipe Title" name="title" rules={[{ required: true }]}>
+    <Form.Item label={t("pages.reactCourse.createRecipeForm.recipeTitle")} name="title" rules={[{ required: true }]}>
       <Input/>
     </Form.Item>
 
     <Form.Item
-      label="Complexity"
+      label={t("pages.reactCourse.createRecipeForm.complexity")}
       name="Complexity"
-      rules={[{ required: true, message: 'Please select a complexity level!' }]}
+      rules={[{ required: true, message: t("pages.reactCourse.createRecipeForm.inputComplexity") }]}
     >
       <Select 
         placeholder="Select complexity" 
@@ -76,22 +80,22 @@ const CreateRecipe: React.FC<CreateRecipeProps> = ({ form, onSubmit, recipe }) =
       </Select>
     </Form.Item>
 
-    <Form.Item label="Image Url" name="image" rules={[{ required: true }]}>
+    <Form.Item label={t("pages.reactCourse.createRecipeForm.image")} name="image" rules={[{ required: true }]}>
       <Input />
     </Form.Item>
 
     <Form.Item
       name="short"
-      label="Short Descrtiption"
-      rules={[{ required: true, message: 'Please input Short Description' }]}
+      label={t("pages.reactCourse.createRecipeForm.shortDescr")}
+      rules={[{ required: true, message: t("pages.reactCourse.createRecipeForm.shortDescr") }]}
     >
       <TextArea showCount maxLength={300} />
     </Form.Item>
 
     <Form.Item
       name="instructions"
-      label="Instructions"
-      rules={[{ required: true, message: 'Please Input Instructions' }]}
+      label={t("pages.reactCourse.createRecipeForm.instructions")}
+      rules={[{ required: true, message: t("pages.reactCourse.createRecipeForm.inputInstructions") }]}
     >
       <TextArea showCount maxLength={600} />
     </Form.Item>
@@ -108,11 +112,11 @@ const CreateRecipe: React.FC<CreateRecipeProps> = ({ form, onSubmit, recipe }) =
               <Form.Item
                 {...restField}
                 name={[name, 'last']}
-                label="Ingredient"
+                label={t("pages.reactCourse.createRecipeForm.ingredient")}
                 style={{ width: '100%' }}
-                rules={[{ required: true, message: 'Please input an ingredient' }]}
+                rules={[{ required: true, message: t("pages.reactCourse.createRecipeForm.inputIngredient") }]}
               >
-                <Input placeholder="Ingredient"/>
+                <Input placeholder={t("pages.reactCourse.createRecipeForm.ingredient")}/>
               </Form.Item>
               <MinusCircleOutlined
                 style={{ marginLeft: 8, cursor: 'pointer' }}
@@ -129,11 +133,11 @@ const CreateRecipe: React.FC<CreateRecipeProps> = ({ form, onSubmit, recipe }) =
               <Form.Item
                 {...restField}
                 name={[name, 'last']}
-                label="Ingredient"
+                label={t("pages.reactCourse.createRecipeForm.ingredient")}
                 style={{ width: '100%' }}
-                rules={[{ required: true, message: 'Please input an ingredient' }]}
+                rules={[{ required: true, message: t("pages.reactCourse.createRecipeForm.inputIngredient") }]}
               >
-                <Input placeholder="Ingredient" />
+                <Input placeholder={t("pages.reactCourse.createRecipeForm.ingredient")} />
               </Form.Item>
               <MinusCircleOutlined
                 style={{ marginLeft: 8, cursor: 'pointer' }}
@@ -148,7 +152,7 @@ const CreateRecipe: React.FC<CreateRecipeProps> = ({ form, onSubmit, recipe }) =
               block
               icon={<PlusOutlined />}
             >
-              Add ingredient
+              {t("pages.reactCourse.createRecipeForm.addIngredient")}
             </Button>
           </Form.Item>
         </>

@@ -78,21 +78,50 @@
                 }
             },
             "reactCourse": {
-              "title": "Книга Рецептів",
-              "linkLabel": "Книга Рецептів",
-              "recipeSearch": "Знайти рецепт",
-              "editRecipe": "Редагувати рецепт",
-              "deleteRecipe": "Видалити рецепт",
-              "createRecipe": "Створити рецепт",
-              "recipeTable": {
-                "title": "Назва",
-                "image": "Зображення",
-                "description": "Опис",
-                "complexity": "Склідність",
-                "ingredients": "Інгредієнти",
-                "recipeNotFound": "Рецепт не знайдено",
-                "backToRecipeList": "Повернутись до списку рецептів"
-              }
+                "title": "Книга Рецептів",
+                "linkLabel": "Книга Рецептів",
+                "recipeSearch": "Знайти рецепт",
+                "editRecipe": "Редагувати рецепт",
+                "deleteRecipe": "Видалити рецепт",
+                "createRecipe": "Створити рецепт",
+                "recipeTable": {
+                    "title": "Назва",
+                    "image": "Зображення",
+                    "description": "Опис",
+                    "complexity": "Склідність",
+                    "ingredients": "Інгредієнти",
+                    "recipeNotFound": "Рецепт не знайдено",
+                    "backToRecipeList": "Повернутись до списку рецептів"
+                },
+                "recipePage": {
+                    "deleteRecipe": "Ви впевнені, що хочете видалити цей рецепт?",
+                    "deleteRecipeContent": "Після видалення цю дію неможливо скасувати.",
+                    "deleteAllow": "Так, видалити",
+                    "deleteDisallow": "Скасувати",
+                    "recipeDeleted": "Рецепт видалено",
+                    "recipeDeletedContent": "Рецепт було успішно видалено.",
+                    "ok": "Ок",
+                    "sureToRemove": "Ви впевнені, що хочете відредагувати цей рецепт?",
+                    "confirmRemove": "Будь ласка, переконайтеся, що дані правильні перед відправкою.",
+                    "recipeEdited": "Рецепт успішно відредаговано!"
+                },
+               "recipeDrawer": {
+                    "cancel": "Скасувати",
+                    "confirm": "Підтвердити"
+                },
+                "createRecipeForm": {
+                    "recipeTitle": "Назва рецепта",
+                    "complexity": "Складність",
+                    "inputComplexity": "Будь ласка, виберіть рівень складності!",
+                    "image": "URL зображення",
+                    "shortDescr": "Короткий опис",
+                    "inputShortDescr": "Будь ласка, введіть короткий опис",
+                    "instructions": "Інструкції",
+                    "inputInstructions": "Будь ласка, введіть інструкції",
+                    "ingredient": "Інгредієнт",
+                    "inputIngredient": "Будь ласка, введіть інгредієнт",
+                    "addIngredient": "Додати інгредієнт"
+                }
             }
         },
         "footer": {
