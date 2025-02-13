@@ -77,6 +77,15 @@
                     "createdAt": "Дата реєстрації"
                 }
             },
+            "copydeck": {
+                "title": "Контент-документ",
+                "linkLabel": "Контент-документ",
+                "links": {
+                    "contentList": "Список контенту",
+                    "contenCreate": "Створити контент",
+                    "contenTemplateCreate": "Створити шаблон контенту"
+                }
+            },
             "reactCourse": {
                 "title": "Книга Рецептів",
                 "linkLabel": "Книга Рецептів",

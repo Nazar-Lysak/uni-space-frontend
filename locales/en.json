@@ -77,6 +77,15 @@
           "createdAt": "Registred"
         }
       },
+      "copydeck": {
+        "title": "Copydeck",
+        "linkLabel": "Copydeck",
+        "links": {
+          "contentList": "Content List",
+          "contenCreate": "Create Content",
+          "contenTemplateCreate": "Create Content Template"
+        }
+      },
       "reactCourse": {
         "title": "Recipe Book",
         "linkLabel": "Recipe Book",

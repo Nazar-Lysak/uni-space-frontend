@@ -36,7 +36,39 @@ const AdminPannel: React.FC = () => {
                     url={`/${language}/admin/content`} 
                     title={t("pages.content.linkLabel")} 
                 />
-            )
+            ),
+            children: [
+                {
+                    type: 'item',
+                    key: 'all-contents',
+                    label: (
+                        <LinkComponent 
+                            url={`/${language}/admin/content/content-list`} 
+                            title={t("pages.copydeck.links.contentList")} 
+                        />
+                    ),
+                },
+                {
+                    type: 'item',
+                    key: 'create-content',
+                    label: (
+                        <LinkComponent 
+                            url={`/${language}/admin/content/create-content`} 
+                            title={t("pages.copydeck.links.contenCreate")} 
+                        />
+                    ),
+                },
+                {
+                    type: 'item',
+                    key: 'create-content-template',
+                    label: (
+                        <LinkComponent 
+                            url={`/${language}/admin/content/create-content-template`} 
+                            title={t("pages.copydeck.links.contenTemplateCreate")} 
+                        />
+                    ),
+                },
+            ]
         },
         {
             key: 'configuration',
