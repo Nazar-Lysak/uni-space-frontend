@@ -49,7 +49,16 @@ const Header: React.FC = () => {
           title={t("pages.reactCourse.linkLabel")} 
         />  
       )      
-    }  
+    },
+    { 
+      key: 'copydeck',
+      label: (
+        <LinkComponent
+          url={`/${language}/copydeck`} 
+          title={t("pages.copydeck.linkLabel")}
+        />
+      )
+    } 
   ]
 
   return (
